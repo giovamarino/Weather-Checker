@@ -1,0 +1,14 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.Content {
+  background-color: beige;
+}
+
+p {
+  font-size: 20px;
+  font-weight: 800;
+}
