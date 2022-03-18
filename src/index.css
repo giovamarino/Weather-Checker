@@ -1,14 +1,44 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Nunito", sans-serif;
 }
 
-.Content {
-  background-color: beige;
+/* ------------ Navbar.js ------------ */
+.navbar {
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-p {
-  font-size: 20px;
-  font-weight: 800;
+.navbar h1 {
+  padding: 10px;
+  border: 2px solid;
+  border-radius: 10px;
+}
+
+/* ------------ Content.Js ------------ */
+.input {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 600px;
+  margin: auto;
+}
+
+/* ------------ ContentCards.Js ------------ */
+.contentCards {
+  padding: 10px;
+  border: 2px solid;
+  border-radius: 10px;
+  display: inline-block;
+}
+
+.contentCardsContainer {
+  width: 1000px;
+  margin: 30px auto;
 }

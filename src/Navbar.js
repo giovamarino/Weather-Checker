@@ -2,9 +2,11 @@
 
 const Navbar = () => {
   return (
-    <nav className="navbar">
-      <h1>Weather Blog</h1>
-    </nav>
+    <div className="navbar">
+      <nav>
+        <h1>Weather Search</h1>
+      </nav>
+    </div>
   );
 };
 
