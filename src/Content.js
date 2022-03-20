@@ -2,17 +2,20 @@
 import { useState } from "react";
 import Buttons from "./Buttons";
 import ContentCards from "./ContentCards";
-const kelvinToFarenheit = (n) => ((n - 273.15) * 9) / 5 + 32;
+import MainCard from "./MainCard";
+const kelvinToFarenheit = (n) => (((n - 273.15) * 9) / 5 + 32).toFixed(1);
 
 const Content = () => {
-  let [temperature, setTemperature] = useState(null);
   let [typedCity, setTypedCity] = useState("");
   let [stateCode, setStateCode] = useState("");
   let [countryCode, setCountryCode] = useState("US");
   let [lat, setLat] = useState("");
   let [lon, setLon] = useState("");
-
-  async function asyncGeocoder() {}
+  let [temperature, setTemperature] = useState(null);
+  let [feelsLike, setFeelsLike] = useState(null);
+  let [tempMin, setTempMin] = useState(null);
+  let [tempMax, setTempMax] = useState(null);
+  let [conditionsMain, setConditionsMain] = useState(null);
 
   const fetchGeocoder = () => {
     fetch(
@@ -33,6 +36,11 @@ const Content = () => {
     // });
   };
 
+  let tempMinDay1ContainerArray = [];
+  let tempMaxDay1ContainerArray = [];
+  // put them all in an array
+  // pull the largest number of an array
+
   const fetchWeather = () => {
     fetch(
       `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=06e3591b9709952a8a7949d6f377c2f1`
@@ -40,9 +48,33 @@ const Content = () => {
       .then((res) => res.json())
       .then((returnedData) => {
         console.log(returnedData);
-        setTemperature(
-          kelvinToFarenheit(returnedData.list[0].main.temp).toFixed(1)
+        setTemperature(kelvinToFarenheit(returnedData.list[0].main.temp));
+        setFeelsLike(kelvinToFarenheit(returnedData.list[0].main.feels_like));
+        tempMinDay1ContainerArray.push(
+          returnedData.list[0].main.temp_min,
+          returnedData.list[1].main.temp_min,
+          returnedData.list[2].main.temp_min,
+          returnedData.list[3].main.temp_min,
+          returnedData.list[4].main.temp_min,
+          returnedData.list[5].main.temp_min,
+          returnedData.list[6].main.temp_min,
+          returnedData.list[7].main.temp_min
         );
+        setTempMin(kelvinToFarenheit(Math.min(...tempMinDay1ContainerArray)));
+        tempMaxDay1ContainerArray.push(
+          returnedData.list[0].main.temp_max,
+          returnedData.list[1].main.temp_max,
+          returnedData.list[2].main.temp_max,
+          returnedData.list[3].main.temp_max,
+          returnedData.list[4].main.temp_max,
+          returnedData.list[5].main.temp_max,
+          returnedData.list[6].main.temp_max,
+          returnedData.list[7].main.temp_max
+        );
+        setTempMax(kelvinToFarenheit(Math.max(...tempMaxDay1ContainerArray)));
+        setConditionsMain(returnedData.list[0].weather[0].description);
+        // setTempMin(kelvinToFarenheit(returnedData.list[0].main.temp_min));
+        // setTempMax(kelvinToFarenheit(returnedData.list[0].main.temp_max));
       });
   };
 
@@ -89,12 +121,38 @@ const Content = () => {
           </select>
         </div>
       </div>
+      <div className="mainCardContainer">
+        <MainCard typedCity={typedCity} />
+      </div>
       <div className="contentCardsContainer">
-        <ContentCards temperature={temperature} />
-        <ContentCards temperature={temperature} />
-        <ContentCards temperature={temperature} />
-        <ContentCards temperature={temperature} />
-        <ContentCards temperature={temperature} />
+        <ContentCards
+          temperature={temperature}
+          feelsLike={feelsLike}
+          tempMin={tempMin}
+          tempMax={tempMax}
+          conditionsMain={conditionsMain}
+        />
+        <ContentCards
+          temperature={temperature}
+          feelsLike={feelsLike}
+          tempMin={tempMin}
+          tempMax={tempMax}
+          conditionsMain={conditionsMain}
+        />
+        <ContentCards
+          temperature={temperature}
+          feelsLike={feelsLike}
+          tempMin={tempMin}
+          tempMax={tempMax}
+          conditionsMain={conditionsMain}
+        />
+        <ContentCards
+          temperature={temperature}
+          feelsLike={feelsLike}
+          tempMin={tempMin}
+          tempMax={tempMax}
+          conditionsMain={conditionsMain}
+        />
       </div>
 
       <Buttons

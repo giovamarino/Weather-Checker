@@ -11,7 +11,6 @@
 .navbar {
   margin: 20px 0;
   display: flex;
-  align-items: center;
   justify-content: center;
 }
 
@@ -31,8 +30,23 @@
 }
 
 /* ------------ ContentCards.Js ------------ */
+
+.mainCardContainer {
+  width: 1000px;
+  margin: 30px auto;
+}
+
+.mainCard {
+  padding: 10px;
+  border: 2px solid;
+  border-radius: 10px;
+  height: 250px;
+  display: flex;
+}
+
 .contentCards {
   padding: 10px;
+  width: 230px;
   border: 2px solid;
   border-radius: 10px;
   display: inline-block;
@@ -41,4 +55,11 @@
 .contentCardsContainer {
   width: 1000px;
   margin: 30px auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.mainCardHeader {
+  display: flex;
+  justify-content: space-between;
 }
