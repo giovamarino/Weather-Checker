@@ -4,6 +4,7 @@ import Buttons from "./Buttons";
 import ContentCards from "./ContentCards";
 import MainCard from "./MainCard";
 const kelvinToFarenheit = (n) => (((n - 273.15) * 9) / 5 + 32).toFixed(1);
+const metersToFeet = (n) => n * 3.28084;
 
 const Content = () => {
   let [typedCity, setTypedCity] = useState("");
@@ -13,8 +14,12 @@ const Content = () => {
   let [lon, setLon] = useState("");
   let [temperature, setTemperature] = useState(null);
   let [feelsLike, setFeelsLike] = useState(null);
-  let [tempMin, setTempMin] = useState(null);
   let [tempMax, setTempMax] = useState(null);
+  let [tempMin, setTempMin] = useState(null);
+  let [humidity, setHumidity] = useState(null);
+  let [windSpeed, setWindSpeed] = useState(null);
+  let [gust, setGust] = useState(null);
+  let [visibility, setVisiblity] = useState(null);
   let [conditionsMain, setConditionsMain] = useState(null);
 
   const fetchGeocoder = () => {
@@ -48,8 +53,12 @@ const Content = () => {
       .then((res) => res.json())
       .then((returnedData) => {
         console.log(returnedData);
-        setTemperature(kelvinToFarenheit(returnedData.list[0].main.temp));
-        setFeelsLike(kelvinToFarenheit(returnedData.list[0].main.feels_like));
+        setTemperature(
+          kelvinToFarenheit(returnedData.list[0].main.temp) + "° F"
+        );
+        setFeelsLike(
+          kelvinToFarenheit(returnedData.list[0].main.feels_like) + "° F"
+        );
         tempMinDay1ContainerArray.push(
           returnedData.list[0].main.temp_min,
           returnedData.list[1].main.temp_min,
@@ -60,7 +69,9 @@ const Content = () => {
           returnedData.list[6].main.temp_min,
           returnedData.list[7].main.temp_min
         );
-        setTempMin(kelvinToFarenheit(Math.min(...tempMinDay1ContainerArray)));
+        setTempMin(
+          kelvinToFarenheit(Math.min(...tempMinDay1ContainerArray)) + "° F"
+        );
         tempMaxDay1ContainerArray.push(
           returnedData.list[0].main.temp_max,
           returnedData.list[1].main.temp_max,
@@ -71,7 +82,15 @@ const Content = () => {
           returnedData.list[6].main.temp_max,
           returnedData.list[7].main.temp_max
         );
-        setTempMax(kelvinToFarenheit(Math.max(...tempMaxDay1ContainerArray)));
+        setTempMax(
+          kelvinToFarenheit(Math.max(...tempMaxDay1ContainerArray)) + "° F"
+        );
+        setHumidity(returnedData.list[0].main.humidity + "%");
+        setWindSpeed(returnedData.list[0].wind.speed.toFixed(1) + " mph");
+        setGust(returnedData.list[0].wind.gust.toFixed(1) + " mph");
+        setVisiblity(
+          metersToFeet(returnedData.list[0].visibility).toFixed(0) + " ft"
+        );
         setConditionsMain(returnedData.list[0].weather[0].description);
         // setTempMin(kelvinToFarenheit(returnedData.list[0].main.temp_min));
         // setTempMax(kelvinToFarenheit(returnedData.list[0].main.temp_max));
@@ -122,7 +141,18 @@ const Content = () => {
         </div>
       </div>
       <div className="mainCardContainer">
-        <MainCard typedCity={typedCity} />
+        <MainCard
+          typedCity={typedCity}
+          temperature={temperature}
+          feelsLike={feelsLike}
+          tempMin={tempMin}
+          tempMax={tempMax}
+          humidity={humidity}
+          windSpeed={windSpeed}
+          gust={gust}
+          visibility={visibility}
+          conditionsMain={conditionsMain}
+        />
       </div>
       <div className="contentCardsContainer">
         <ContentCards
@@ -130,6 +160,10 @@ const Content = () => {
           feelsLike={feelsLike}
           tempMin={tempMin}
           tempMax={tempMax}
+          humidity={humidity}
+          windSpeed={windSpeed}
+          gust={gust}
+          visibility={visibility}
           conditionsMain={conditionsMain}
         />
         <ContentCards
@@ -137,6 +171,10 @@ const Content = () => {
           feelsLike={feelsLike}
           tempMin={tempMin}
           tempMax={tempMax}
+          humidity={humidity}
+          windSpeed={windSpeed}
+          gust={gust}
+          visibility={visibility}
           conditionsMain={conditionsMain}
         />
         <ContentCards
@@ -144,6 +182,10 @@ const Content = () => {
           feelsLike={feelsLike}
           tempMin={tempMin}
           tempMax={tempMax}
+          humidity={humidity}
+          windSpeed={windSpeed}
+          gust={gust}
+          visibility={visibility}
           conditionsMain={conditionsMain}
         />
         <ContentCards
@@ -151,6 +193,10 @@ const Content = () => {
           feelsLike={feelsLike}
           tempMin={tempMin}
           tempMax={tempMax}
+          humidity={humidity}
+          windSpeed={windSpeed}
+          gust={gust}
+          visibility={visibility}
           conditionsMain={conditionsMain}
         />
       </div>

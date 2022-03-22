@@ -4,6 +4,10 @@ const ContentCards = ({
   tempMax,
   tempMin,
   conditionsMain,
+  humidity,
+  windSpeed,
+  gust,
+  visibility,
 }) => {
   // 0 22-03-18 6:00:00
   // 8 22-03-19 6:00:00
@@ -14,15 +18,15 @@ const ContentCards = ({
   return (
     <div className="contentCards">
       <h2>Date:</h2>
-      <p>Temperature: {temperature}° F</p>
-      <p>Feels like: {feelsLike}° F</p>
+      <p>Temperature: {temperature}</p>
+      <p>Feels like: {feelsLike}</p>
       <p>
-        High / Low: {tempMax}° / {tempMin}° F
+        High / Low: {tempMax} / {tempMin}
       </p>
-      <p>Humidity:</p>
-      <p>Wind Speed:</p>
-      <p>Gust:</p>
-      <p>Visibility:</p>
+      <p>Humidity: {humidity}</p>
+      <p>Wind Speed: {windSpeed}</p>
+      <p>Gust: {gust}</p>
+      <p>Visibility: {visibility}</p>
       <p>Conditions: {conditionsMain}</p>
     </div>
   );
