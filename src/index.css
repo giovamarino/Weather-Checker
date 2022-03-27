@@ -24,12 +24,10 @@
 .input {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   width: 600px;
   margin: auto;
 }
-
-/* ------------ ContentCards.Js ------------ */
 
 .mainCardContainer {
   width: 1000px;
@@ -41,16 +39,60 @@
   border: 2px solid;
   border-radius: 10px;
   height: 250px;
+  background-color: lime;
+  display: flex;
+  flex-direction: column;
   /* display: flex;
   justify-content: space-between; */
 }
 
-.mainCard h1 {
+.mainCard .top-row {
+  background-color: red;
+
+  flex: 0 0 20%;
+  display: flex;
+  flex-direction: row;
+}
+
+.mainCard .top-row div {
+  background-color: aqua;
+  flex: 0 1 50%;
+  margin: 5px;
+}
+
+.mainCard .bottom-row {
+  background-color: orange;
+  display: flex;
+  flex: 1 1 auto;
+}
+
+.mainCard .bottom-row .data-col {
+  background-color: pink;
+  flex: 0 1 50%;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.mainCard .bottom-row .data-col .data-col-row {
+  flex: 1 1 auto;
+  background-color: dodgerblue;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.mainCard .bottom-row .data-col .data-col-row span {
+  flex: 0 0 auto;
+  background-color: yellow;
+  margin-right: 20px;
+}
+
+.mainCard .mainCard h1 {
   display: inline;
 }
 
 .mainCardCityName {
-  text-align: center;
 }
 
 /* .mainCardData {

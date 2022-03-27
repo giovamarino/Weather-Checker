@@ -4,24 +4,22 @@ const MainCard = ({
   feelsLike,
   tempMax,
   tempMin,
-  conditionsMain,
   humidity,
+  conditionsMain,
   windSpeed,
   gust,
   visibility,
 }) => {
   return (
     <div className="mainCard">
-      <div>
-        <h1>Today</h1>
-      </div>
-      <div>
-        <h1 className="mainCardCityName">{typedCity}</h1>
-      </div>
-      <div></div>
-      <div class="mainCardData">
+      <div className="top-row">
         <div>
-          <p>Temperature: {temperature}</p>
+          <h1>Today</h1>
+        </div>
+        <div>
+          <h1 className="mainCardCityName">{typedCity}</h1>
+        </div>
+        {/* <p>Temperature: {temperature}</p>
           <p>Feels like: {feelsLike}</p>
           <p>
             High / Low: {tempMax} / {tempMin}
@@ -32,8 +30,30 @@ const MainCard = ({
           <p>Wind Speed: {windSpeed}</p>
           <p>Gust: {gust}</p>
           <p>Visibility: {visibility}</p>
-          <p>Conditions: {conditionsMain}</p>
+          <p>Conditions: {conditionsMain}</p> */}
+      </div>
+      <div className="bottom-row">
+        <div className="data-col">
+          <div className="data-col-row">
+            <span className="label">Temperature:</span>{" "}
+            <span className="value">{temperature}</span>
+          </div>
+          <div className="data-col-row">
+            <span className="label">Feels like:</span>
+            <span className="value">{feelsLike}</span>
+          </div>
+          <div className="data-col-row">
+            <span className="label">High / Low:</span>
+            <span className="value">
+              {tempMax} / {tempMin}
+            </span>
+          </div>
+          <div className="data-col-row">
+            <span className="label">Humidity:</span>
+            <span className="value">{humidity}</span>
+          </div>
         </div>
+        <div className="data-col"></div>
       </div>
     </div>
   );
