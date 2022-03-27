@@ -1505,6 +1505,19 @@ const Content = () => {
   ];
 
   let today = new Date().getDate();
+  let tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  tomorrow = tomorrow.toString();
+  tomorrow = tomorrow.split(" ");
+  let tomorrowDate = tomorrow[2];
+  Number("tomorrowDate");
+
+  console.log(typeof tomorrow[2]);
+  console.log(tomorrow);
+  console.log(tomorrow[2]);
+  console.log(tomorrowDate);
+  console.log(typeof tomorrowDate);
+
   var futureDate = new Date();
   futureDate.setDate(futureDate.getDate() + 5);
 
@@ -1516,6 +1529,8 @@ const Content = () => {
       let dtTxt = iterator.dt_txt.split("-");
       dtTxt = dtTxt[2].split(" ")[0];
       console.log(dtTxt);
+
+      console.log(today);
     }
   };
 
