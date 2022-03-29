@@ -18,6 +18,7 @@
   padding: 10px;
   border: 2px solid;
   border-radius: 10px;
+  background-color: #c5d5cb;
 }
 
 /* ------------ Content.Js ------------ */
@@ -34,40 +35,37 @@
   margin: 30px auto;
 }
 
+.mainCard .top-row {
+  border-radius: 10px;
+  flex: 0 0 20%;
+  display: flex;
+  flex-direction: row;
+  background-color: #9fa8a3;
+}
+
 .mainCard {
   padding: 10px;
   border: 2px solid;
   border-radius: 10px;
   height: 250px;
-  background-color: lime;
   display: flex;
   flex-direction: column;
-  /* display: flex;
-  justify-content: space-between; */
-}
-
-.mainCard .top-row {
-  background-color: red;
-
-  flex: 0 0 20%;
-  display: flex;
-  flex-direction: row;
+  font-size: 110%;
+  background-color: #e3e0cf;
+  box-shadow: 10px 10px 35px #9fa8a3, -10px -10px 35px #ffffff;
 }
 
 .mainCard .top-row div {
-  background-color: aqua;
   flex: 0 1 50%;
   margin: 5px;
 }
 
 .mainCard .bottom-row {
-  background-color: orange;
   display: flex;
   flex: 1 1 auto;
 }
 
 .mainCard .bottom-row .data-col {
-  background-color: pink;
   flex: 0 1 50%;
   margin: 5px;
   display: flex;
@@ -76,7 +74,6 @@
 
 .mainCard .bottom-row .data-col .data-col-row {
   flex: 1 1 auto;
-  background-color: dodgerblue;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -84,24 +81,12 @@
 
 .mainCard .bottom-row .data-col .data-col-row span {
   flex: 0 0 auto;
-  background-color: yellow;
   margin-right: 20px;
 }
 
 .mainCard .mainCard h1 {
   display: inline;
 }
-
-.mainCardCityName {
-}
-
-/* .mainCardData {
-  display: block;
-} */
-
-/* .mainCard div {
-  width: 300px;
-} */
 
 .mainCardDiv {
   width: 300px;
@@ -114,6 +99,7 @@
   border: 2px solid;
   border-radius: 10px;
   display: inline-block;
+  background-color: #e3e0cf;
 }
 
 .contentCardsContainer {
@@ -121,4 +107,13 @@
   margin: 30px auto;
   display: flex;
   justify-content: space-between;
+}
+
+body {
+  background: url("https://pbs.twimg.com/media/EC9u2uFX4AIMeCT?format=jpg&name=4096x4096")
+    no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
