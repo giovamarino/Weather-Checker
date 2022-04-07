@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const MainCard = ({
   typedCity,
   temperature,
@@ -10,6 +12,7 @@ const MainCard = ({
   gust,
   visibility,
 }) => {
+  // let [isPending, setIsPending] = useState(false);
   return (
     <div className="mainCard">
       <div className="top-row">
@@ -33,7 +36,7 @@ const MainCard = ({
           <div className="data-col-row">
             <span className="label">High / Low:</span>
             <span className="value">
-              {tempMax} / {tempMin}
+              {tempMax} {tempMin}
             </span>
           </div>
           <div className="data-col-row">

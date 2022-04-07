@@ -18,34 +18,54 @@ const Content = () => {
   let [gust, setGust] = useState(null);
   let [visibility, setVisiblity] = useState(null);
   let [conditionsMain, setConditionsMain] = useState(null);
+  let [date, setDate] = useState(null);
 
+  // Arrays for Highs / Lows for each day
   let tempMinMaxDay1ContainerArray = [];
   let tempMinMaxDay2ContainerArray = [];
   let tempMinMaxDay3ContainerArray = [];
   let tempMinMaxDay4ContainerArray = [];
   let tempMinMaxDay5ContainerArray = [];
 
-  let today = new Date().getDate();
-  let tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  tomorrow = tomorrow.toString();
-  tomorrow = tomorrow.split(" ")[0];
-  console.log(tomorrow);
-  let tomorrowDate = tomorrow[2];
-  Number("tomorrowDate");
+  // Gets the dates for the next 5 days
+  let dateDay = [];
+  const getCurrentDays = () => {
+    for (let i = 0; i < 5; i++) {
+      let dayOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+      let day = new Date();
+      day.setDate(day.getDate() + i);
+      // add day of week with date of month in string
+      dateDay.push(`${dayOfWeek[day.getDay()]} ${day.getDate()}`);
+    }
+    // console.log(dateDay);
+  };
 
-  let futureDate4 = new Date();
-  futureDate4.setDate(futureDate4.getDate() + 4);
+  let currentVisibility = [];
+
+  const test = 32808;
+
+  // const MyVar = () => {
+  //   switch (test) {
+  //     case 31000 > 30000:
+  //       console.log(`greater than case works`);
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // };
 
   const fetchGeocoder = () => {
     fetch(
       `http://api.openweathermap.org/geo/1.0/direct?q=${typedCity},${stateCode},${countryCode}&limit=5&appid=06e3591b9709952a8a7949d6f377c2f1
       `
     )
-      // City Required, State code Optional, Country code Optional (but make it required)
       .then((res) => res.json())
       .then((returnedData) => {
         fetchWeather(returnedData[0].lat, returnedData[0].lon);
+      })
+      .catch((error) => {
+        // console.log(error);
+        alert(error);
       });
   };
 
@@ -56,6 +76,9 @@ const Content = () => {
       .then((res) => res.json())
       .then((returnedData) => {
         console.log(returnedData);
+        // dumping dateDays array in case multiple searches between multiple days w/o refreshing
+        dateDay = [];
+        getCurrentDays();
 
         // day 1
         setTemperature(
@@ -64,6 +87,7 @@ const Content = () => {
         setFeelsLike(
           kelvinToFarenheit(returnedData.list[0].main.feels_like) + "° F"
         );
+        tempMinMaxDay1ContainerArray = [];
         tempMinMaxDay1ContainerArray.push(
           returnedData.list[0].main.temp_min,
           returnedData.list[1].main.temp_min,
@@ -78,18 +102,26 @@ const Content = () => {
           kelvinToFarenheit(Math.min(...tempMinMaxDay1ContainerArray)) + "° F"
         );
         setTempMax(
-          kelvinToFarenheit(Math.max(...tempMinMaxDay1ContainerArray)) + "° F"
+          kelvinToFarenheit(Math.max(...tempMinMaxDay1ContainerArray)) + "° F /"
         );
 
         setHumidity(returnedData.list[0].main.humidity + "%");
         setWindSpeed(returnedData.list[0].wind.speed.toFixed(1) + " mph");
         setGust(returnedData.list[0].wind.gust.toFixed(1) + " mph");
+        ////////
+        currentVisibility.push(
+          metersToFeet(returnedData.list[0].visibility).toFixed(0)
+        );
+        console.log(currentVisibility);
+        // visibilityChecker();
+        /////////
         setVisiblity(
           metersToFeet(returnedData.list[0].visibility).toFixed(0) + " ft"
         );
         setConditionsMain(returnedData.list[0].weather[0].description);
 
         // day 2
+        tempMinMaxDay2ContainerArray = [];
         tempMinMaxDay2ContainerArray.push(
           returnedData.list[8].main.temp_min,
           returnedData.list[9].main.temp_min,
@@ -103,9 +135,8 @@ const Content = () => {
         setTempMin2(
           kelvinToFarenheit(Math.min(...tempMinMaxDay2ContainerArray)) + "° F"
         );
-        console.log(tempMinMaxDay2ContainerArray);
         setTempMax2(
-          kelvinToFarenheit(Math.max(...tempMinMaxDay2ContainerArray)) + "° F"
+          kelvinToFarenheit(Math.max(...tempMinMaxDay2ContainerArray)) + "° F /"
         );
         setHumidityDay2(returnedData.list[8].main.humidity + "%");
         setWindSpeedDay2(returnedData.list[8].wind.speed.toFixed(1) + " mph");
@@ -114,8 +145,10 @@ const Content = () => {
           metersToFeet(returnedData.list[8].visibility).toFixed(0) + " ft"
         );
         setConditionsDay2(returnedData.list[8].weather[0].description);
+        setdateDay2(dateDay[1]);
 
         // day 3
+        tempMinMaxDay3ContainerArray = [];
         tempMinMaxDay3ContainerArray.push(
           returnedData.list[16].main.temp_min,
           returnedData.list[17].main.temp_min,
@@ -130,7 +163,7 @@ const Content = () => {
           kelvinToFarenheit(Math.min(...tempMinMaxDay3ContainerArray)) + "° F"
         );
         setTempMax3(
-          kelvinToFarenheit(Math.max(...tempMinMaxDay3ContainerArray)) + "° F"
+          kelvinToFarenheit(Math.max(...tempMinMaxDay3ContainerArray)) + "° F /"
         );
         setHumidityDay3(returnedData.list[16].main.humidity + "%");
         setWindSpeedDay3(returnedData.list[16].wind.speed.toFixed(1) + " mph");
@@ -139,8 +172,10 @@ const Content = () => {
           metersToFeet(returnedData.list[16].visibility).toFixed(0) + " ft"
         );
         setConditionsDay3(returnedData.list[16].weather[0].description);
+        setdateDay3(dateDay[2]);
 
         // day 4
+        tempMinMaxDay4ContainerArray = [];
         tempMinMaxDay4ContainerArray.push(
           returnedData.list[24].main.temp_min,
           returnedData.list[25].main.temp_min,
@@ -155,7 +190,7 @@ const Content = () => {
           kelvinToFarenheit(Math.min(...tempMinMaxDay4ContainerArray)) + "° F"
         );
         setTempMax4(
-          kelvinToFarenheit(Math.max(...tempMinMaxDay4ContainerArray)) + "° F"
+          kelvinToFarenheit(Math.max(...tempMinMaxDay4ContainerArray)) + "° F /"
         );
         setHumidityDay4(returnedData.list[24].main.humidity + "%");
         setWindSpeedDay4(returnedData.list[24].wind.speed.toFixed(1) + " mph");
@@ -164,8 +199,10 @@ const Content = () => {
           metersToFeet(returnedData.list[24].visibility).toFixed(0) + " ft"
         );
         setConditionsDay4(returnedData.list[24].weather[0].description);
+        setdateDay4(dateDay[3]);
 
         // day 5
+        tempMinMaxDay5ContainerArray = [];
         tempMinMaxDay5ContainerArray.push(
           returnedData.list[32].main.temp_min,
           returnedData.list[33].main.temp_min,
@@ -180,7 +217,7 @@ const Content = () => {
           kelvinToFarenheit(Math.min(...tempMinMaxDay5ContainerArray)) + "° F"
         );
         setTempMax5(
-          kelvinToFarenheit(Math.max(...tempMinMaxDay5ContainerArray)) + "° F"
+          kelvinToFarenheit(Math.max(...tempMinMaxDay5ContainerArray)) + "° F /"
         );
         setHumidityDay5(returnedData.list[32].main.humidity + "%");
         setWindSpeedDay5(returnedData.list[32].wind.speed.toFixed(1) + " mph");
@@ -189,6 +226,7 @@ const Content = () => {
           metersToFeet(returnedData.list[32].visibility).toFixed(0) + " ft"
         );
         setConditionsDay5(returnedData.list[32].weather[0].description);
+        setdateDay5(dateDay[4]);
       });
   };
 
@@ -200,6 +238,7 @@ const Content = () => {
   let [gustDay2, setGustDay2] = useState(null);
   let [visibilityDay2, setVisiblityDay2] = useState(null);
   let [conditionsDay2, setConditionsDay2] = useState(null);
+  let [dateDay2, setdateDay2] = useState(null);
 
   // day 3
   let [tempMin3, setTempMin3] = useState(null);
@@ -209,6 +248,7 @@ const Content = () => {
   let [gustDay3, setGustDay3] = useState(null);
   let [visibilityDay3, setVisiblityDay3] = useState(null);
   let [conditionsDay3, setConditionsDay3] = useState(null);
+  let [dateDay3, setdateDay3] = useState(null);
 
   // day 4
   let [tempMin4, setTempMin4] = useState(null);
@@ -218,6 +258,7 @@ const Content = () => {
   let [gustDay4, setGustDay4] = useState(null);
   let [visibilityDay4, setVisiblityDay4] = useState(null);
   let [conditionsDay4, setConditionsDay4] = useState(null);
+  let [dateDay4, setdateDay4] = useState(null);
 
   // day 5
   let [tempMin5, setTempMin5] = useState(null);
@@ -227,6 +268,7 @@ const Content = () => {
   let [gustDay5, setGustDay5] = useState(null);
   let [visibilityDay5, setVisiblityDay5] = useState(null);
   let [conditionsDay5, setConditionsDay5] = useState(null);
+  let [dateDay5, setdateDay5] = useState(null);
 
   return (
     <div className="content">
@@ -270,7 +312,6 @@ const Content = () => {
             <option value="KR">KR</option>
           </select>
         </div>
-        {/* <button onClick={() => loop(array)}>Search Location</button> */}
         <button onClick={() => fetchGeocoder()}>Search Location</button>
       </div>
       <div className="mainCardContainer">
@@ -296,6 +337,7 @@ const Content = () => {
           gustCards={gustDay2}
           visibilityCards={visibilityDay2}
           conditionsCards={conditionsDay2}
+          dateDay={dateDay2}
         />
         <ContentCards
           tempMinCards={tempMin3}
@@ -305,6 +347,7 @@ const Content = () => {
           gustCards={gustDay3}
           visibilityCards={visibilityDay3}
           conditionsCards={conditionsDay3}
+          dateDay={dateDay3}
         />
         <ContentCards
           tempMinCards={tempMin4}
@@ -314,6 +357,7 @@ const Content = () => {
           gustCards={gustDay4}
           visibilityCards={visibilityDay4}
           conditionsCards={conditionsDay4}
+          dateDay={dateDay4}
         />
         <ContentCards
           tempMinCards={tempMin5}
@@ -323,6 +367,7 @@ const Content = () => {
           gustCards={gustDay5}
           visibilityCards={visibilityDay5}
           conditionsCards={conditionsDay5}
+          dateDay={dateDay5}
         />
       </div>
     </div>

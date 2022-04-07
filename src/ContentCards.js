@@ -6,21 +6,30 @@ const ContentCards = ({
   gustCards,
   visibilityCards,
   conditionsCards,
+  dateDay,
 }) => {
+  const visibilityChecker = (visibilityCards) => {
+    if (visibilityCards > 30000) {
+      console.log(`this works`);
+    } else {
+    }
+  };
   return (
     <div className="contentCards">
-      <h2>Date:</h2>
-      <p>
-        <span className="label">High / Low:</span>
-        <span className="value">
-          {tempMinCards} / {tempMaxCards}
-        </span>
-      </p>
-      <p>Humidity: {humidityCards}</p>
-      <p>Wind Speed: {windSpeedCards}</p>
-      <p>Gust: {gustCards}</p>
-      <p>Visibility: {visibilityCards}</p>
-      <p>Conditions: {conditionsCards}</p>
+      <div className="contentCardsTitle">
+        <h3>{dateDay}</h3>
+      </div>
+      <div className="contentCardsBottomRow">
+        <p>
+          <span className="label">High / Low:</span> {tempMaxCards}{" "}
+          {tempMinCards}
+        </p>
+        <p>Humidity: {humidityCards}</p>
+        <p>Wind Speed: {windSpeedCards}</p>
+        <p>Gust: {gustCards}</p>
+        <p>Visibility: {visibilityCards}</p>
+        <p>Conditions: {conditionsCards}</p>
+      </div>
     </div>
   );
 };
