@@ -8,12 +8,6 @@ const ContentCards = ({
   conditionsCards,
   dateDay,
 }) => {
-  const visibilityChecker = (visibilityCards) => {
-    if (visibilityCards > 30000) {
-      console.log(`this works`);
-    } else {
-    }
-  };
   return (
     <div className="contentCards">
       <div className="contentCardsTitle">
