@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 const MainCard = ({
   typedCity,
   temperature,
@@ -12,7 +10,6 @@ const MainCard = ({
   gust,
   visibility,
 }) => {
-  // let [isPending, setIsPending] = useState(false);
   return (
     <div className="mainCard">
       <div className="top-row">

@@ -19,7 +19,6 @@ const Content = () => {
   let [gust, setGust] = useState(null);
   let [visibility, setVisiblity] = useState(null);
   let [conditionsMain, setConditionsMain] = useState(null);
-  let [date, setDate] = useState(null);
 
   // day 2
   let [tempMin2, setTempMin2] = useState(null);
@@ -82,27 +81,27 @@ const Content = () => {
     }
   };
 
+  // Converts the visibility from a number value to a description
   const visibilityToWords = (visibilityCardsParam) => {
     if (!visibilityCardsParam) {
       return "";
     }
     let visibilityNumber = parseInt(visibilityCardsParam);
-    if (visibilityNumber > 30000) {
+    if (visibilityNumber >= 30000) {
       return `Clear`;
     }
-    if (visibilityNumber < 29999 && visibilityNumber > 25000) {
+    if (visibilityNumber <= 29999 && visibilityNumber >= 25000) {
       return `Good`;
     }
-    if (visibilityNumber < 24999 && visibilityNumber > 15000) {
+    if (visibilityNumber <= 24999 && visibilityNumber >= 15000) {
       return `Fair`;
     }
-    if (visibilityNumber < 14999 && visibilityNumber > 5000) {
+    if (visibilityNumber <= 14999 && visibilityNumber >= 5000) {
       return `Poor`;
     }
-    if (visibilityNumber < 4999) {
+    if (visibilityNumber <= 4999) {
       return `Very Poor`;
     }
-    return "Test";
   };
 
   const fetchGeocoder = () => {
@@ -291,15 +290,16 @@ const Content = () => {
 
   return (
     <div className="content">
+      <div className="errorMessageContainer">
+        {error && (
+          <div className="errorMessage">
+            There was an error retrieving the weather
+          </div>
+        )}
+      </div>
       <div className="input">
         <div className="inputChild">
-          {error && (
-            <div style={{ color: "red", fontSize: 25 }}>
-              There was an error retrieving the weather
-            </div>
-          )}
-
-          <div style={{ display: "flex" }}>
+          <div>
             <label htmlFor="cityLabel">City: </label>
             <input
               type="text"
@@ -313,35 +313,35 @@ const Content = () => {
               value={typedCity}
             ></input>
           </div>
-
-          <div className="inputChild">
-            <label htmlFor="stateCodeLabel">State Code: </label>
-            <select
-              id="stateCodeLabel"
-              onChange={(e) => {
-                setStateCode(e.target.value);
-              }}
-            >
-              <option value=""></option>
-              <option value="AL">AL</option>
-              <option value="FL">FL</option>
-            </select>
-          </div>
-
-          <div className="inputChild">
-            <label htmlFor="countryCodeLabel">Country Code: </label>
-            <select
-              id="countryCodeLabel"
-              onChange={(e) => {
-                setCountryCode(e.target.value);
-              }}
-            >
-              <option value="US">US</option>
-              <option value="KR">KR</option>
-            </select>
-          </div>
-          <button onClick={() => fetchGeocoder()}>Search Location</button>
         </div>
+
+        <div className="inputChild">
+          <label htmlFor="stateCodeLabel">State Code: </label>
+          <select
+            id="stateCodeLabel"
+            onChange={(e) => {
+              setStateCode(e.target.value);
+            }}
+          >
+            <option value=""></option>
+            <option value="AL">AL</option>
+            <option value="FL">FL</option>
+          </select>
+        </div>
+
+        <div className="inputChild">
+          <label htmlFor="countryCodeLabel">Country Code: </label>
+          <select
+            id="countryCodeLabel"
+            onChange={(e) => {
+              setCountryCode(e.target.value);
+            }}
+          >
+            <option value="US">US</option>
+            <option value="KR">KR</option>
+          </select>
+        </div>
+        <button onClick={() => fetchGeocoder()}>Search Location</button>
       </div>
       <div className="mainCardContainer">
         <MainCard
