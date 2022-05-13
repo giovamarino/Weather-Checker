@@ -324,8 +324,15 @@ const Content = () => {
             }}
           >
             <option value=""></option>
-            <option value="AL">AL</option>
+            <option value="CA">CA</option>
+            <option value="CO">CO</option>
             <option value="FL">FL</option>
+            <option value="GA">GA</option>
+            <option value="KY">KY</option>
+            <option value="MI">MI</option>
+            <option value="NJ">NJ</option>
+            <option value="NY">NY</option>
+            <option value="TX">TX</option>
           </select>
         </div>
 
@@ -338,7 +345,14 @@ const Content = () => {
             }}
           >
             <option value="US">US</option>
+            <option value="AU">AU</option>
+            <option value="BR">BR</option>
+            <option value="CN">CN</option>
+            <option value="FR">FR</option>
+            <option value="JP">JP</option>
             <option value="KR">KR</option>
+            <option value="MX">MX</option>
+            <option value="UK">UK</option>
           </select>
         </div>
         <button onClick={() => fetchGeocoder()}>Search Location</button>
